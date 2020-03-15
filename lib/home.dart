@@ -31,7 +31,7 @@ class MyHomePage extends StatelessWidget {
               ),
               Observer(
                 builder: (_) {
-                  return Text('${controller.name} ${controller.lastName}');
+                  return Text('${controller.fullName}');
                 },
               )
             ],

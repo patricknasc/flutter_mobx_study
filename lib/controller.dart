@@ -10,6 +10,9 @@ abstract class ControllerBase with Store {
   @observable
   String lastName = '';
 
+  @computed
+  String get fullName => '$name $lastName';
+
   @action
   changeName(String newName) {
     name = newName;
