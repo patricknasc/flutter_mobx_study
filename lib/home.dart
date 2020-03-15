@@ -12,25 +12,34 @@ class MyHomePage extends StatelessWidget {
       appBar: AppBar(
         title: Text('Mobx'),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Observer(
-              builder: (_) {
-                return Text(
-                  '${controller.counter}',
-                  style: Theme.of(context).textTheme.display1,
-                );
-              },
-            )
-          ],
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              TextField(
+                decoration: InputDecoration(labelText: 'Name'),
+                onChanged: controller.changeName,
+              ),
+              TextField(
+                decoration: InputDecoration(labelText: 'Last name'),
+                onChanged: controller.changeLastName,
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Observer(
+                builder: (_) {
+                  return Text('${controller.name} ${controller.lastName}');
+                },
+              )
+            ],
+          ),
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          controller.increment();
-        },
+        onPressed: () {},
         tooltip: 'Increment',
         child: Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
