@@ -19,7 +19,7 @@ class MyHomePage extends StatelessWidget {
             Observer(
               builder: (_) {
                 return Text(
-                  '${controller.counter.value}',
+                  '${controller.counter}',
                   style: Theme.of(context).textTheme.display1,
                 );
               },
