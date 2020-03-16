@@ -1,64 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:get_it/get_it.dart';
+import 'package:mobx_study/models/body.dart';
 
 import 'controller.dart';
 
 class HomePage extends StatelessWidget {
   final controller = Controller();
 
-  _textField({String labelText, onChanged, String Function() errorText}) {
-    return TextField(
-      onChanged: onChanged,
-      decoration: InputDecoration(
-        border: OutlineInputBorder(),
-        labelText: labelText,
-        errorText: errorText == null ? null : errorText(),
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Mobx - Form'),
+    final controller = GetIt.I.get<Controller>();
+    return Scaffold(appBar: AppBar(
+      title: Observer(
+        builder: (_) {
+          return Text(controller.isValid ? 'Valid Form' : 'Invalid Form');
+        },
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          children: <Widget>[
-            Observer(
-              builder: (_) {
-                return _textField(
-                  labelText: "Name",
-                  onChanged: controller.client.changeName,
-                  errorText: controller.validateName,
-                );
-              },
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            Observer(
-              builder: (_) {
-                return _textField(
-                  labelText: "Email",
-                  onChanged: controller.client.changeEmail,
-                  errorText: controller.validateEmail,
-                );
-              },
-            ),
-            Observer(
-              builder: (_) {
-                return RaisedButton(
-                  onPressed: controller.isValid ? () {} : null,
-                  child: Text('Salvar'),
-                );
-              },
-            )
-          ],
-        ),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
-    );
+    ), body: Observer(
+      builder: (_) {
+        return BodyWidget(controller: controller);
+      },
+    ) // This trailing comma makes auto-formatting nicer for build methods.
+        );
   }
 }
